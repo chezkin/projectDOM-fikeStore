@@ -3,7 +3,10 @@ const pathServer = {
     pathAllProduct: "https://service-fike-store.onrender.com/Products/all",
     deleteProduct: `https://service-fike-store.onrender.com/products/delete/`,
     putEditProduct: "https://service-fike-store.onrender.com/products/update",
-    postNewProduct : "https://service-fike-store.onrender.com/products/add-product"
+    postNewProduct : "https://service-fike-store.onrender.com/products/add-product",
+    putLessProduct : "https://service-fike-store.onrender.com/products/less",
+    putMoreProduct : "https://service-fike-store.onrender.com/products/more",
+    postReloadData : "https://service-fike-store.onrender.com/products/reload-data",
 }
 
 
@@ -86,6 +89,61 @@ async function postNewProduct(obj) {
         const res = await fetch(pathServer.postNewProduct, requestOptions)
         const response = await res.text()
         return response;
+    } catch (error) {
+        console.log(error.message);
+        throw new Error(error.message)
+    }
+}
+
+async function putMoreProduct(id) {
+    const raw = "";
+
+    const requestOptions = {
+        method: 'PUT',
+        body: raw,
+        redirect: 'follow'
+    };
+    try {
+
+        const data = await fetch(`${pathServer.putMoreProduct}/${id}`,requestOptions)
+        const datatxt = await data.text()
+        console.log(datatxt);
+        // return dataJson;
+    } catch (error) {
+        console.log(error.message);
+        throw new Error(error.message)
+    }
+}
+
+async function putLessProduct(id) {
+    const raw = "";
+
+    const requestOptions = {
+        method: 'PUT',
+        body: raw,
+        redirect: 'follow'
+    };
+    try {
+        const data = await fetch(`${pathServer.putLessProduct}/${id}`,requestOptions)
+        const datatxt = await data.text()
+        console.log(datatxt);
+    } catch (error) {
+        console.log(error.message);
+        throw new Error(error.message)
+    }
+}
+
+
+async function postReloadData() {
+    const raw = "";
+
+    const requestOptions = {
+        method: 'POST',
+        body: raw,
+        redirect: 'follow'
+    };
+    try {
+        const data = await fetch(pathServer.postReloadData,requestOptions)
     } catch (error) {
         console.log(error.message);
         throw new Error(error.message)

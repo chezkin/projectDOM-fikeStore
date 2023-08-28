@@ -101,8 +101,8 @@ main h1 {
     flex-wrap: wrap;
 }
 .product{
-    height: 300px;
-    width: 150px;
+    height: 369px;
+    width: 223px;
     display: flex;
     flex-direction: column;
     border-radius: 18px;
@@ -138,11 +138,24 @@ main h1 {
 
     padding: 3px;
 }
+.divbtn{
+    margin: 0 auto;
+    padding: 0 auto;
+    display: flex;
+    height: 34px;
+    justify-content: space-around;
+    align-items: center;
+}
 
 .divbtn{
     display: flex;
     border-top: 1px solid rgb(77, 77, 237);
     margin: 3%;
+}
+
+.qunn{
+    font-size: large;
+    color: #0A6EBD;
 }
 #changeMain {
 

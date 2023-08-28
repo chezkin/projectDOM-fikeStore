@@ -194,11 +194,14 @@
 
 // אירוע לשחזור מסד הנתונים לגרסה המקורית
 // חשוב: הכפתור נמצא בפינה השמאלית למעלה של המסך 
-// const restore = document.querySelector('#iconsHead3');
-// restore.addEventListener('click', () => {
-//     localStorage.removeItem('data');
-//     location.reload();
-// });
+const restore = document.querySelector('#iconsHead3');
+restore.addEventListener('click', async () => {
+    try {
+        const result = await postReloadData();
+        location.reload();
+    } catch (e) {console.log(e.message);}
+
+});
 
 
 // יצירת משתנים קבועים שך DOM
@@ -263,12 +266,20 @@ function createProduct(item) {
     const product = addCreateElement('div', 'product', main);
 
     const divimage = addCreateElement('div', 'divimage', product);
+    const tiditels = addCreateElement('div', 'ditels', product);
     const ditels = addCreateElement('div', 'ditels', product);
 
     const image = addCreateElement('img', 'image', divimage);
     image.src = item.image;
 
-    const nameTitel = addCreateElement('h5', 'nameTitel', ditels, item.title);
+    const nameTitel = addCreateElement('h5', 'nameTitel', tiditels, item.title);
+
+    const divquantity = addCreateElement('div', 'divbtn', ditels);
+    const btnPlus = addCreateElement('i', "btnPlus small material-icons", divquantity, 'arrow_drop_up')
+    const tiquantity = addCreateElement('h6', 'tiqunn', divquantity, 'quantity: ');
+    const quantity = addCreateElement('h5', 'qunn', divquantity, ` ${item.quantity}`);
+    const btnLess = addCreateElement('i', "btnLess small material-icons", divquantity, 'arrow_drop_down')
+
 
     const divbtn = addCreateElement('div', 'divbtn', ditels);
     const btnDelete = addCreateElement('i', "btnDelete small material-icons", divbtn, 'delete')
@@ -278,6 +289,7 @@ function createProduct(item) {
     const listpart = [product, item]
     listOBJ.push(listpart)
 
+
     // יצירת האזנות
 
     // האזנה למחיקת כרטיס מוצר
@@ -286,7 +298,6 @@ function createProduct(item) {
             try {
                 await deleteProduct(item.id);
                 main.removeChild(product);
-                // data.splice(data.indexOf(item), 1);
             } catch (err) { console.log(err.message); }
         });
     }
@@ -301,6 +312,7 @@ function createProduct(item) {
         });
     }
     moreDetailsEventProduct();
+    
 
     // האזנה לכפתור עריכה
     btnEdit.addEventListener('click', () => {
@@ -310,11 +322,36 @@ function createProduct(item) {
     });
 
 
+    // האזנה להוספת כמות מוצר
+    const morequantityEvent = () => {
+        btnPlus.addEventListener('click', async () => {
+            try {
+                await putMoreProduct(item.id);
+                item.quantity += 1
+                quantity.textContent = item.quantity;
+            } catch (err) { console.log(err.message); }
+        });
+    }
+    morequantityEvent();
+
+    // האזנה להפחתת כמות מוצר
+    const lessquantityEvent = () => {
+        btnLess.addEventListener('click', async () => {
+            try {
+                await putLessProduct(item.id);
+                item.quantity -= 1
+                quantity.textContent = item.quantity;
+            } catch (err) { console.log(err.message); }
+        });
+    }
+    lessquantityEvent();
+
+
     // יצירת האזנה לכל כפתור
     function btnCategoryEvent(btn, categoryy) {
         btn.addEventListener('click', () => {
-            btnss.forEach(bt => bt.style.backgroundColor = '#ffbf9b');
-            btn.style.backgroundColor = '#ffdecb';
+            btnss.forEach(bt => bt.style.backgroundColor = '#0A6EBD');
+            btn.style.backgroundColor = '#A1C2F1';
             listOBJ.forEach(element => {
                 if (element[1].category === categoryy) {
                     element[0].classList.add('disFlex');
@@ -438,7 +475,7 @@ async function createForm() {
             await postNewProduct(newproduct);
             createProduct(newproduct);
             divform.removeChild(form);
-            location.reload()
+            location.reload();
         } catch (err) { console.log(err.message, err); }
 
         // הורדת הטופס מהמסך והחזרת עמוד הבית
@@ -537,8 +574,6 @@ function createEditForm(elm) {
 
         editCreat.classList.remove('disFlex');
         editCreat.classList.add('disNONE');
-
-
     });
 }
 
