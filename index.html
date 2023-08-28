@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project DOM</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="root">
+        <header>
+            <div id="firstLine">
+                <div class="padding4px" id="titelHead">bla bla bla</div>
+                <div id="iconsHead">
+                    <a href="index.html"> <i id="iconsHead1" class="small material-icons padding4px">home</i></a>
+                    <i id="iconsHead2" class="small material-icons padding4px">add_circle_outline</i>
+                    <i id="iconsHead3" class="small material-icons padding4px">reply_all</i>
+                </div>
+            </div>
+            <div class="disFlex" id="secendLine">
+                <div id="butoonsMenu">
+                    <button class="btnCategory" id="products" type="button">All Products</button>
+                    <button class="btnCategory" id="men" type="button">Men</button>
+                    <button class="btnCategory" id="women" type="button">Women</button>
+                    <button class="btnCategory" id="jeWelery" type="button">JeWelery</button>
+                    <button class="btnCategory" id="electronics" type="button">Electronics</button>
+                </div>
+                <div id="serch">
+                    <input id="searchInput" type="text" value="" placeholder="Serch">
+                    <button id="searchBtn" type="button"><i class="small material-icons">search</i></button>
+                </div>
+            </div>
+        </header>
+        <main><h1>Products</h1><div id="mainCards"></div></main>
+        <div class=".disNONE" id="changeMain"></div>
+        <div class=".disNONE" id="editCreat"></div>
+        <footer><p>technical support 
+            <i class="material-icons">phone</i>
+             +1.555.555.555</p></footer>
+
+    </div>
+    <script src="funcfetch.js"></script>
+    <script src="dom.js"></script>
+</body>
+
+</html>
