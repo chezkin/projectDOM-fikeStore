@@ -227,7 +227,7 @@ const searchInput = document.querySelector('#searchInput');
 const btnss = document.querySelectorAll('#butoonsMenu button');
 
 // יצירת משתנה 'כמות' לשימוש בהמשך
-let quantity = Math.floor(Math.random() * 100)
+// let quantity = Math.floor(Math.random() * 100)
 
 
 // פונקציה ליצירת אלמנט משויך עם שם מחלקה וטקסט במידה והוכנס
@@ -271,7 +271,7 @@ function createProduct(item) {
 
     const image = addCreateElement('img', 'image', divimage);
     image.src = item.image;
-
+    
     const nameTitel = addCreateElement('h5', 'nameTitel', tiditels, item.title);
 
     const divquantity = addCreateElement('div', 'divbtn', ditels);
@@ -316,7 +316,7 @@ function createProduct(item) {
 
     // האזנה לכפתור עריכה
     btnEdit.addEventListener('click', () => {
-        createEditForm(item);
+        createEditForm(item,product);
         main.removeChild(product);
 
     });
@@ -468,11 +468,12 @@ async function createForm() {
             description: descr.value,
             category: cate.value,
             image: imgg.value,
-            quantity: qun.value,
+            quantity: Number(qun.value),
             rating: { rate: 3.9, count: 120 }
         }
         try {
             await postNewProduct(newproduct);
+           
             createProduct(newproduct);
             divform.removeChild(form);
             location.reload();
@@ -505,7 +506,7 @@ editEventProduct();
 
 
 //  יצירת טופס לעריכת מוצר
-function createEditForm(elm) {
+function createEditForm(elm, product) {
     const divtitel1 = addCreateElement('div', 'divtitel1', editCreat,);
     const divform = addCreateElement('div', 'divform', editCreat,);
 
@@ -528,7 +529,7 @@ function createEditForm(elm) {
     const cate = addCreateInput('Category: ', elm.category);
     const pri = addCreateInput('Price: ', elm.price);
     const imgg = addCreateInput('image URL: ', elm.image);
-    const qun = addCreateInput('Quantity: ', quantity);
+    const qun = addCreateInput('Quantity: ', elm.quantity);
     const descr = addCreateInput('description: ', elm.description);
 
 
@@ -555,11 +556,12 @@ function createEditForm(elm) {
         elm.description = descr.value;
         elm.category = cate.value;
         elm.image = imgg.value;
-        elm.quantity = qun.value,
+        elm.quantity = Number(qun.value),
         elm.rating = { rate: 3.9, count: 120 };
 
         try {
             await putEditProduct(elm);
+            console.log(product);
             createProduct(elm);
             divform.removeChild(form);
             location.reload()
